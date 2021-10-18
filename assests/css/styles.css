@@ -28,3 +28,17 @@ h1 {
   justify-content: center;
   font-weight: bold;
 }
+
+.search-container {
+  margin-left: 10px;
+}
+
+.btn {
+  margin: 10px;
+  padding: 10px 75px 4px;
+}
+
+.list-group {
+  margin: 10px;
+  padding: 10px;
+}
