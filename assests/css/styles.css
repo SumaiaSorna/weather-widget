@@ -18,3 +18,13 @@
 body {
   font-family: "Georama", sans-serif;
 }
+
+h1 {
+  padding: 5px;
+  margin: 10px;
+  background-color: var(--oxford-blue);
+  color: white;
+  text-align: center;
+  justify-content: center;
+  font-weight: bold;
+}
