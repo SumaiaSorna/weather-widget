@@ -19,7 +19,7 @@ body {
   font-family: "Georama", sans-serif;
 }
 
-h1 {
+/* h1 {
   padding: 5px;
   margin: 10px;
   background-color: var(--oxford-blue);
@@ -41,4 +41,4 @@ h1 {
 .list-group {
   margin: 10px;
   padding: 10px;
-}
+} */
