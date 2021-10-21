@@ -1,44 +1,9 @@
-:root {
-  --true-blue: #0466c8ff;
-  --usafa-blue: #0353a4ff;
-  --dark-cornflower-blue: #023e7dff;
-  --oxford-blue: #002855ff;
-  --oxford-blue-2: #001845ff;
-  --oxford-blue-3: #001233ff;
-  --independence: #33415cff;
-  --black-coral: #5c677dff;
-  --roman-silver: #7d8597ff;
-  --manatee: #979dacff;
-}
-
 * {
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Georama", sans-serif;
+.forecast-card {
+  width: 18rem;
+  background-color: #333399;
+  color: #fff;
 }
-
-/* h1 {
-  padding: 5px;
-  margin: 10px;
-  background-color: var(--oxford-blue);
-  color: white;
-  text-align: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.search-container {
-  margin-left: 10px;
-}
-
-.btn {
-  margin: 10px;
-  padding: 10px 75px 4px;
-}
-
-.list-group {
-  margin: 10px;
-  padding: 10px;
-} */
