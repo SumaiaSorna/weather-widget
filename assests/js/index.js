@@ -1,52 +1,3 @@
-const mockData = {
-  current: {
-    name: "London",
-    temperature: 123.45,
-    wind: 111.22,
-    humidity: 33,
-    uvi: 2.5,
-    date: "(3/30/2021)",
-    iconCode: "04n",
-  },
-  forecast: [
-    {
-      date: "(3/30/2021)",
-      temperature: 123.45,
-      wind: 111.22,
-      humidity: 33,
-      iconCode: "04n",
-    },
-    {
-      date: "(3/30/2021)",
-      temperature: 123.45,
-      wind: 111.22,
-      humidity: 33,
-      iconCode: "04n",
-    },
-    {
-      date: "(3/30/2021)",
-      temperature: 123.45,
-      wind: 111.22,
-      humidity: 33,
-      iconCode: "04n",
-    },
-    {
-      date: "(3/30/2021)",
-      temperature: 123.45,
-      wind: 111.22,
-      humidity: 33,
-      iconCode: "04n",
-    },
-    {
-      date: "(3/30/2021)",
-      temperature: 123.45,
-      wind: 111.22,
-      humidity: 33,
-      iconCode: "04n",
-    },
-  ],
-};
-
 const weatherCardsContainer = $("#weather-cards-container");
 
 const API_KEY = "26ab91f66d32135dfdc20fb5fe538a22";
@@ -156,5 +107,11 @@ const renderWeatherCards = function (weatherData) {
   renderForecastWeatherCards(weatherData.forecast);
 };
 
-getWeatherData("london");
-renderWeatherCards(mockData);
+const onLoad = async function () {
+  //get data from API
+  const weatherData = await getWeatherData("leeds");
+
+  renderWeatherCards(weatherData);
+};
+
+$(document).ready(onLoad);
