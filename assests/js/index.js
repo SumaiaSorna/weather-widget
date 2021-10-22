@@ -49,6 +49,72 @@ const mockData = {
 
 const weatherCardsContainer = $("#weather-cards-container");
 
+const API_KEY = "26ab91f66d32135dfdc20fb5fe538a22";
+
+const getWeatherData = async (cityNames) => {
+  const currentDataUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityNames}&appid=${API_KEY}`;
+
+  const currentDataResponse = await fetch(currentDataUrl);
+  const currentData = await currentDataResponse.json();
+  const lat = currentData.coord.lat;
+  const lon = currentData.coord.lon;
+  const name = currentData.name;
+
+  const forecastDataUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`;
+
+  const forecastDataResponse = await fetch(forecastDataUrl);
+  const forecastData = await forecastDataResponse.json();
+
+  return {
+    current: {
+      name: name,
+      temperature: forecastData.current.temp,
+      wind: forecastData.current.wind_speed,
+      humidity: forecastData.current.humidity,
+      uvi: forecastData.current.uvi,
+      date: "(3/30/2021)",
+      iconCode: "04n",
+    },
+    forecast: [
+      {
+        date: "(3/30/2021)",
+        temperature: 123.45,
+        wind: 111.22,
+        humidity: 33,
+        iconCode: "04n",
+      },
+      {
+        date: "(3/30/2021)",
+        temperature: 123.45,
+        wind: 111.22,
+        humidity: 33,
+        iconCode: "04n",
+      },
+      {
+        date: "(3/30/2021)",
+        temperature: 123.45,
+        wind: 111.22,
+        humidity: 33,
+        iconCode: "04n",
+      },
+      {
+        date: "(3/30/2021)",
+        temperature: 123.45,
+        wind: 111.22,
+        humidity: 33,
+        iconCode: "04n",
+      },
+      {
+        date: "(3/30/2021)",
+        temperature: 123.45,
+        wind: 111.22,
+        humidity: 33,
+        iconCode: "04n",
+      },
+    ],
+  };
+};
+
 const renderCurrentWeatherCard = function (currentData) {
   const currentWeatherCard = `<div class="card-body bg-white border mb-2">
         <h2 class="card-title">${currentData.name} ${currentData.date} <img src="https://openweathermap.org/img/w/${currentData.iconCode}.png"/></h2>
@@ -89,4 +155,6 @@ const renderWeatherCards = function (weatherData) {
 
   renderForecastWeatherCards(weatherData.forecast);
 };
+
+getWeatherData("london");
 renderWeatherCards(mockData);
