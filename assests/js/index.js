@@ -1,7 +1,10 @@
+// target weather card container
 const weatherCardsContainer = $("#weather-cards-container");
 
+// API key
 const API_KEY = "26ab91f66d32135dfdc20fb5fe538a22";
 
+// get current data
 const getCurrentData = function (name, forecastData) {
   return {
     name: name,
@@ -15,9 +18,11 @@ const getCurrentData = function (name, forecastData) {
 };
 
 const getFormattedData = function (unixTimestamp, format = "DD/MM/YYYY") {
+  // return formatted date
   return moment.unix(unixTimestamp).format(format);
 };
 
+// get forecast data
 const getForecastData = function (forecastData) {
   const callback = function (each) {
     return {
@@ -33,11 +38,13 @@ const getForecastData = function (forecastData) {
 };
 
 const getWeatherData = async (cityNames) => {
+  // building API url to get lat and lon data
   const currentDataUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityNames}&appid=${API_KEY}`;
 
   const currentDataResponse = await fetch(currentDataUrl);
   const currentData = await currentDataResponse.json();
 
+  // lat,lon and city name
   const lat = currentData.coord.lat;
   const lon = currentData.coord.lon;
   const name = currentData.name;
@@ -57,6 +64,7 @@ const getWeatherData = async (cityNames) => {
   };
 };
 
+// for UVI index
 const getUVIClassName = function (uvi) {
   if (uvi >= 0 && uvi < 3) {
     return "btn-success";
@@ -153,20 +161,25 @@ const renderRecentCities = function () {
       // get city name
 
       const cityName = target.data("city");
-      console.log(cityName);
 
       // render weather info with city name
       renderWeatherInfo(cityName);
     }
   };
 
+  // event listener on city item container
   citiesContainer.on("click", handleClick);
+
+  // append city item to container
   cities.forEach(constructAndAppendCity);
 };
 
 const renderWeatherInfo = async function (cityName) {
   const weatherData = await getWeatherData(cityName);
+  // remove last weather search data
   weatherCardsContainer.empty();
+
+  // render new search data
   renderWeatherCards(weatherData);
 };
 
@@ -199,4 +212,5 @@ const handleReady = function () {
 };
 
 $("#search-form").on("submit", handleSearch);
+
 $(document).ready(handleReady);
