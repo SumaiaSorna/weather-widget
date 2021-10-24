@@ -1,4 +1,4 @@
-# weather-widget
+# Weather-widget
 
 The application provides a number of functionalities: weather data by a selected city, a five-day forecast; a visual representation of data for easy understanding, and a record of several cities that can be searched using this application.
 
@@ -12,4 +12,43 @@ A traveller can plan a journey based on the weather information as information f
 
 ## Deployed link
 
-Click [I'm an inline-style link](https://www.google.com) to view the deployed application.
+Click [here](https://sumaiasorna.github.io/weather-widget/) to view the deployed application.
+
+## Technology Used
+
+- HTML5
+- CSS3
+- Bootstrap
+- jQuery
+- Javascript
+- Moment.js
+
+## Uses of API
+
+Used OpenWeather One Call API to collect weather information.
+
+#### URLs
+
+- First API call used to get city name with lon and lat parameters
+
+```
+https://api.openweathermap.org/data/2.5/weather?q=${cityNames}&appid=${API_KEY}
+
+```
+
+- second API call used to get current and forecast weather data
+
+```
+https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial
+
+```
+
+## Screenshots
+
+- Desktop Viewport
+
+  ![desktop Viewport](assests\images\screeshots\Weather-Widget-desktop-viewport.png)
+
+- Mobile Viewport
+
+![mobile Viewport](assests\images\screeshots\Weather-Widget-mobile-viewport.png)
