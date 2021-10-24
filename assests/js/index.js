@@ -9,17 +9,13 @@ const getCurrentData = function (name, forecastData) {
     wind: forecastData.current.wind_speed,
     humidity: forecastData.current.humidity,
     uvi: forecastData.current.uvi,
-    date: getFormattedData(forecastData.current.dt),
+    date: getFormattedData(forecastData.current.dt, "ddd DD/MM/YYYY HH:mm"),
     iconCode: forecastData.current.weather[0].icon,
   };
 };
 
-const getFormattedData = function (unixTimestamp) {
-  return moment.unix(unixTimestamp).format("ddd DD/MM/YYYY");
-};
-
-const getIconCode = function () {
-  return;
+const getFormattedData = function (unixTimestamp, format = "DD/MM/YYYY") {
+  return moment.unix(unixTimestamp).format(format);
 };
 
 const getForecastData = function (forecastData) {
@@ -59,6 +55,22 @@ const getWeatherData = async (cityNames) => {
 
     forecast: forecast,
   };
+};
+
+const setCitiesInLS = function (cityName) {
+  // get cities from LS
+  const cities = JSON.parse(localStorage.getItem("recentCities")) ?? [];
+
+  //if city does not exist
+
+  if (!cities.includes(cityName)) {
+    // insert cityName in cities
+    cities.push(cityName);
+  }
+
+  // set cities in LS
+
+  localStorage.setItem("recentCities", JSON.stringify(cities));
 };
 
 const renderCurrentWeatherCard = function (currentData) {
@@ -102,7 +114,43 @@ const renderWeatherCards = function (weatherData) {
   renderForecastWeatherCards(weatherData.forecast);
 };
 
-const onLoad = async function () {};
+const renderRecentCities = function () {
+  // get cities from LS
+  const cities = JSON.parse(localStorage.getItem("recentCities")) ?? [];
+  const citiesContainer = $("#city-list");
+
+  citiesContainer.empty();
+
+  const constructAndAppendCity = function (city) {
+    const liEl = `<li data-city=${city} class="list-group-item">${city}</li>`;
+    citiesContainer.append(liEl);
+  };
+
+  const handleClick = function (event) {
+    const target = $(event.target);
+
+    //if the click is from li only
+
+    if (target.is("li")) {
+      // get city name
+
+      const cityName = target.data("city");
+      console.log(cityName);
+
+      // render weather info with city name
+      renderWeatherInfo(cityName);
+    }
+  };
+
+  citiesContainer.on("click", handleClick);
+  cities.forEach(constructAndAppendCity);
+};
+
+const renderWeatherInfo = async function (cityName) {
+  const weatherData = await getWeatherData(cityName);
+  weatherCardsContainer.empty();
+  renderWeatherCards(weatherData);
+};
 
 const handleSearch = async function (event) {
   event.preventDefault();
@@ -110,13 +158,27 @@ const handleSearch = async function (event) {
   const cityName = $("#city-input").val();
 
   if (cityName) {
-    //get data from API
-    const weatherData = await getWeatherData(cityName);
-    weatherCardsContainer.empty();
-    renderWeatherCards(weatherData);
+    renderWeatherInfo(cityName);
 
-    // save city to LS
+    setCitiesInLS(cityName);
+
+    renderRecentCities();
+  }
+};
+
+const handleReady = function () {
+  // render recent cities
+  renderRecentCities();
+
+  // get cities from LS
+  const cities = JSON.parse(localStorage.getItem("recentCities")) ?? [];
+
+  // if there are recent cities get the info for the most recent city
+  if (cities.length) {
+    const cityName = cities.pop();
+    renderWeatherInfo(cityName);
   }
 };
 
 $("#search-form").on("submit", handleSearch);
+$(document).ready(handleReady);
