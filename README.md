@@ -47,8 +47,8 @@ https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${AP
 
 - Desktop Viewport
 
-  ![desktop Viewport](assests\images\screeshots\Weather-Widget-desktop-viewport.png)
+  ![desktop Viewport](./assests/images/screeshots/Weather-Widget-desktop-viewport.png)
 
 - Mobile Viewport
 
-![mobile Viewport](assests\images\screeshots\Weather-Widget-mobile-viewport.png)
+![mobile Viewport](./assests/images/screeshots/Weather-Widget-mobile-viewport.png)
